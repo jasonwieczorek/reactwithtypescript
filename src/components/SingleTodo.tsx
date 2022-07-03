@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {TodoModel} from "./TodoModel";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 import {MdDone} from "react-icons/md";
@@ -37,12 +37,18 @@ const SingleTodo: React.FC<Props> = ({todo, todos, setTodos}) => {
         setIsEdit(false);
    }
 
+    {/* put focus on the edited elements input */}
+    const inputRef = useRef<HTMLInputElement>(null);
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, [isEdit])
+
     return (
         <form onSubmit={(e) => handleEdit(e, todo.id)}>
 
             {/* render task complete? */}
             {isEdit ? (
-                <input value={editState} onChange={(e) => setEditState(e.target.value)}/>
+                <input ref={inputRef} value={editState} onChange={(e) => setEditState(e.target.value)}/>
             ) : todo.isDone ? (
                 <s>{todo.todo}</s>
             ):(
