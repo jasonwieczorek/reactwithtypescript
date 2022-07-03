@@ -11,6 +11,7 @@ type Props = {
 
 const SingleTodo: React.FC<Props> = ({todo, todos, setTodos}) => {
 
+    {/* find the element marked done and reverse its done boolean */}
     const handleDone = (id: number) => {
         setTodos(
             todos.map((todo) =>
@@ -18,15 +19,26 @@ const SingleTodo: React.FC<Props> = ({todo, todos, setTodos}) => {
         );
     };
 
+    {/* remove the element with the id from the list of todos */}
+    const handleDelete = (id: number) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
 
     return (
         <form>
-            <span>{todo.todo}</span>
+
+            {/* render task complete */}
+            {todo.isDone ? (
+                <s>{todo.todo}</s>
+            ):(
+                <span>{todo.todo}</span>
+            )}
+
             <div>
                 <span className="icon">
                     <AiFillEdit/>
                 </span>
-                <span className="icon">
+                <span className="icon" onClick={() => handleDelete(todo.id)}>
                     <AiFillDelete/>
                 </span>
                 <span className="icon" onClick={() => handleDone(todo.id)}>
