@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import InputField from '../src/components/InputField';
+import {TodoModel} from "./components/TodoModel";
+import TodoList from "./components/TodoList";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// A simple React Functional Component
+const App: React.FC = () => {
+
+    // State
+    const [todo, setTodo] = React.useState<string>("");
+    const[todos, setTodos] = React.useState<TodoModel[]>([]);
+
+    // adds a todo task
+    const handleAdd = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        let currentTodo: TodoModel = {
+            id: Date.now(),
+            todo: todo,
+            isDone: false
+        }
+
+        // if there's text, make add a todo to the array state
+        if (todo) {
+            setTodos([...todos, currentTodo]);
+        }
+
+        setTodo("");
+    }
+
+    return (
+        <div className="App">
+            <h1>hello!</h1>
+            <InputField todo={todo} setTodo={setTodo} handleAdd={handleAdd}/>
+            <TodoList todos={todos} setTodos={setTodos}/>
+        </div>
+    );
 }
 
 export default App;

@@ -7,7 +7,7 @@ let aBoolean: boolean = false;
 let anArray: string[] = ["one", "two", "three"];
 let aTuple: [number, string] = [1, "5"];
 
-// Defining an Type Object
+// Defining a Type Object
 type Person = {
     name: string,
     age?: number; // optional
